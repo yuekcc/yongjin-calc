@@ -1,0 +1,69 @@
+import win.ui;
+/*DSG{{*/
+mainForm = win.form(text="车险佣金计算器 v210913";right=479;bottom=383;border="dialog frame";max=false)
+mainForm.add(
+btnCalc={cls="button";text="计算";left=360;top=344;right=424;bottom=368;tabstop=1;z=24};
+static={cls="static";text="商业险";left=0;top=40;right=81;bottom=58;align="right";dl=1;dt=1;notify=1;transparent=1;z=1};
+static10={cls="static";text="佣金";left=352;top=16;right=401;bottom=34;align="center";dl=1;dt=1;notify=1;transparent=1;z=21};
+static2={cls="static";text="交强险";left=0;top=80;right=81;bottom=98;align="right";dl=1;dt=1;notify=1;transparent=1;z=11};
+static3={cls="static";text="驾意险";left=0;top=120;right=81;bottom=138;align="right";dl=1;dt=1;notify=1;transparent=1;z=12};
+static4={cls="static";text="保费合计";left=0;top=176;right=81;bottom=194;align="right";dl=1;dt=1;notify=1;transparent=1;z=13};
+static5={cls="static";text="车船税";left=0;top=216;right=81;bottom=234;align="right";dl=1;dt=1;notify=1;transparent=1;z=14};
+static6={cls="static";text="佣金合计";left=232;top=256;right=321;bottom=274;align="right";dl=1;dt=1;notify=1;transparent=1;z=17};
+static7={cls="static";text="净保费";left=232;top=296;right=321;bottom=314;align="right";dl=1;dt=1;notify=1;transparent=1;z=18};
+static8={cls="static";text="保费";left=104;top=16;right=153;bottom=34;align="center";dl=1;dt=1;notify=1;transparent=1;z=19};
+static9={cls="static";text="佣金率";left=232;top=16;right=281;bottom=34;align="center";dl=1;dt=1;notify=1;transparent=1;z=20};
+txtBaoFeiHeJi={cls="edit";left=88;top=176;right=184;bottom=202;edge=1;font=LOGFONT(h=-16);multiline=1;z=9};
+txtCheChuanShui={cls="edit";left=88;top=216;right=184;bottom=242;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=10};
+txtJingBaoFei={cls="edit";left=328;top=296;right=424;bottom=322;edge=1;font=LOGFONT(h=-16);multiline=1;z=16};
+txtJqBaoFei={cls="edit";left=88;top=80;right=184;bottom=106;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=5};
+txtJqYongJin={cls="edit";left=328;top=80;right=424;bottom=106;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=7};
+txtJqYongJinLv={cls="edit";left=208;top=80;right=304;bottom=104;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=6};
+txtJyxBaoFei={cls="edit";left=88;top=120;right=184;bottom=146;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=8};
+txtJyxYongJin={cls="edit";left=328;top=120;right=424;bottom=146;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=23};
+txtJyxYongJinLv={cls="edit";left=208;top=120;right=304;bottom=146;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=22};
+txtSyBaoFei={cls="edit";left=88;top=40;right=184;bottom=66;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=2};
+txtSyYongJin={cls="edit";left=328;top=40;right=424;bottom=66;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=4};
+txtSyYongJinLv={cls="edit";left=208;top=40;right=304;bottom=66;edge=1;font=LOGFONT(h=-16);multiline=1;tabstop=1;z=3};
+txtYongJinHeJi={cls="edit";left=328;top=256;right=424;bottom=282;edge=1;font=LOGFONT(h=-16);multiline=1;z=15}
+)
+/*}}*/
+
+function getInputNumber(str){
+	return str;
+}
+
+
+function calc(){
+	var syBaoFei = getInputNumber(mainForm.txtSyBaoFei.text);
+	var syYongJinLv = getInputNumber(mainForm.txtSyYongJinLv.text);
+	var syYongJin = syBaoFei * syYongJinLv;
+	mainForm.txtSyYongJin.text = syYongJin;
+	
+	var jqBaoFei = getInputNumber(mainForm.txtJqBaoFei.text);
+	var jqYongJinLv = getInputNumber(mainForm.txtJqYongJinLv.text);
+	var jqYongJin = jqBaoFei * jqYongJinLv;
+	mainForm.txtJqYongJin.text = jqYongJin;
+	
+	var jyxBaoFei = getInputNumber(mainForm.txtJyxBaoFei.text);
+	var jyxYongJinLv = getInputNumber(mainForm.txtJyxYongJinLv.text)
+	var jyxYongJin = jyxBaoFei * jyxYongJinLv
+	mainForm.txtJyxYongJin.text = jyxYongJin;
+	
+	var baoFeiHeJi = syBaoFei + jqBaoFei + jyxBaoFei;
+	mainForm.txtBaoFeiHeJi.text = baoFeiHeJi;
+	
+	var cheChuanShui = getInputNumber(mainForm.txtCheChuanShui.text);
+	
+	var yongJingHeJi = syYongJin + jqYongJin + jyxYongJin
+	mainForm.txtYongJinHeJi.text = yongJingHeJi;
+	
+	mainForm.txtJingBaoFei.text = baoFeiHeJi + cheChuanShui - yongJingHeJi;
+}
+
+mainForm.btnCalc.oncommand = function(id,event){
+	calc();
+}
+
+mainForm.show();
+return win.loopMessage();
